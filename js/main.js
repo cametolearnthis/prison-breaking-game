@@ -2,6 +2,19 @@ class Prisoner {
   constructor() {
     this.positionX = 0;
     this.positionY = 50;
+    this.width = 40;
+    this.height = 40;
+    this.createDomElement();
+  }
+  createDomElement() {
+    const domElement = document.createElement('div');
+    domElement.id = "prisoner";
+    domElement.style.width = this.width + "px";
+    domElement.style.height = this.height + "px";
+    domElement.style.left = this.positionX;
+    domElement.style.bottom = this.positionY + "vh"
+    const boardElm = document.getElementById("board")
+    boardElm.appendChild(domElement);
   }
   moveRigth() {
     if (this.positionX >= 100) {
