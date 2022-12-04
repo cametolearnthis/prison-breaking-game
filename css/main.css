@@ -12,5 +12,9 @@ body {
     position: absolute;
     background-color: orange;
 }
+.light {
+    position: absolute;
+    background-color: yellow;
+}
 
 
