@@ -19,7 +19,7 @@ class Prisoner {
     boardElm.appendChild(this.domElement);
   }
   moveRigth() {
-    if (this.positionX >= 100) {
+    if (this.positionX >= 95) {
       this.positionX;
     } else {
       this.positionX = this.positionX + 5;
@@ -35,7 +35,7 @@ class Prisoner {
     this.domElement.style.left = this.positionX + "vw";
   }
   moveUp() {
-    if (this.positionY >= 100) {
+    if (this.positionY >= 80) {
       this.positionY;
     } else {
       this.positionY = this.positionY + 5;
@@ -52,12 +52,12 @@ class Prisoner {
   }
 }
 
-class Light {
+class TopLight {
   constructor() {
-    this.positionX = 50;
+    this.positionX = Math.floor(Math.random() * 100);
     this.positionY = 80;
     this.width = 5;
-    this.height = 20;
+    this.height = 10;
 
     this.domElement = null;
     this.createDomElement();
@@ -72,9 +72,24 @@ class Light {
     const boardElm = document.getElementById("board");
     boardElm.appendChild(this.domElement);
   }
+  moveDown() {
+    this.positionY--;
+    this.domElement.style.bottom = this.positionY + "vh";
+  }
+  removeTopLightifOutside(topLightInstance) {
+    if (topLightInstance.positionY === 0 - topLightInstance.height) {
+      //console.log('remove obstacle with position...', obstacleInstance.positionY);
+      topLightInstance.domElement.remove();
+
+      this.obstacles.shift();
+      console.log(this.obstacles.length);
+    }
+  }
 }
 const prisoner = new Prisoner();
-const light = new Light();
+const topLigths = [];
+
+
 document.addEventListener("keydown", (e) => {
   if (e.key === "ArrowUp") {
     prisoner.moveUp();
@@ -86,3 +101,35 @@ document.addEventListener("keydown", (e) => {
     prisoner.moveLeft();
   }
 });
+
+
+
+//create light
+setInterval(() => {
+  const newTopLight = new TopLight();
+  topLigths.push(newTopLight);
+  
+}, 500);
+
+//move light & detect collision
+setInterval(() => {
+  topLigths.forEach((topLightInstance) => {
+    topLightInstance.moveDown();
+    
+  //collision detector must be inside this interval, because our prisoner is moving in four directions
+
+  if (
+    prisoner.positionX < topLightInstance.positionX + topLightInstance.width &&
+    prisoner.positionX + prisoner.width > topLightInstance.positionX &&
+    prisoner.positionY < topLightInstance.positionY + topLightInstance.height &&
+    prisoner.height + prisoner.positionY > topLightInstance.positionY
+  ) {
+    console.log("collision");
+    //location.href = 'gameover.html';
+  }
+
+  });
+
+}, 50); 
+
+
