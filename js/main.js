@@ -2,19 +2,21 @@ class Prisoner {
   constructor() {
     this.positionX = 0;
     this.positionY = 50;
-    this.width = 40;
-    this.height = 40;
+    this.width = 5;
+    this.height = 20;
+
+    this.domElement = null;
     this.createDomElement();
   }
   createDomElement() {
-    const domElement = document.createElement('div');
-    domElement.id = "prisoner";
-    domElement.style.width = this.width + "px";
-    domElement.style.height = this.height + "px";
-    domElement.style.left = this.positionX;
-    domElement.style.bottom = this.positionY + "vh"
-    const boardElm = document.getElementById("board")
-    boardElm.appendChild(domElement);
+    this.domElement = document.createElement("div");
+    this.domElement.id = "prisoner";
+    this.domElement.style.width = this.width + "vw";
+    this.domElement.style.height = this.height + "vh";
+    this.domElement.style.left = this.positionX + "vw";
+    this.domElement.style.bottom = this.positionY + "vh";
+    const boardElm = document.getElementById("board");
+    boardElm.appendChild(this.domElement);
   }
   moveRigth() {
     if (this.positionX >= 100) {
@@ -22,6 +24,7 @@ class Prisoner {
     } else {
       this.positionX = this.positionX + 5;
     }
+    this.domElement.style.left = this.positionX + "vw";
   }
   moveLeft() {
     if (this.positionX <= 0) {
@@ -29,6 +32,7 @@ class Prisoner {
     } else {
       this.positionX = this.positionX - 5;
     }
+    this.domElement.style.left = this.positionX + "vw";
   }
   moveUp() {
     if (this.positionY >= 100) {
@@ -36,6 +40,7 @@ class Prisoner {
     } else {
       this.positionY = this.positionY + 5;
     }
+    this.domElement.style.bottom = this.positionY + "vh";
   }
   moveDown() {
     if (this.positionY <= 0) {
@@ -43,21 +48,20 @@ class Prisoner {
     } else {
       this.positionY = this.positionY - 5;
     }
+    this.domElement.style.bottom = this.positionY + "vh";
   }
 }
 
 const prisoner = new Prisoner();
 
-document.addEventListener('keydown', (e) => {
-    if(e.key === "ArrowUp") {
-        prisoner.moveUp();
-    } else if(e.key === "ArrowDown") {
-        prisoner.moveDown();
-    } else if (e.key === "ArrowRight") {
-        prisoner.moveRigth();
-    } else if (e.key === "ArrowLeft") {
-        prisoner.moveLeft();
-    }
-
+document.addEventListener("keydown", (e) => {
+  if (e.key === "ArrowUp") {
+    prisoner.moveUp();
+  } else if (e.key === "ArrowDown") {
+    prisoner.moveDown();
+  } else if (e.key === "ArrowRight") {
+    prisoner.moveRigth();
+  } else if (e.key === "ArrowLeft") {
+    prisoner.moveLeft();
+  }
 });
-
