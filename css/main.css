@@ -14,6 +14,10 @@
     position: absolute;
     background-color: orange;
 }
+.bone {
+    position: absolute;
+    background-color: greenyellow;
+}
 #hole {
     position: absolute;
     background-color: black;
@@ -21,6 +25,12 @@
 .light {
     position: absolute;
     background-color: yellow;
+    border-radius: 50%;
+    opacity: 0.5;
+}
+.dog {
+    position: absolute;
+    background-color: brown;
 }
 
 

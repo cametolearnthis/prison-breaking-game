@@ -51,6 +51,32 @@ class Prisoner {
     this.domElement.style.bottom = this.positionY + "px";
   }
 }
+class Bone {
+  constructor() {
+    this.positionX = prisoner.positionX + 50;
+    this.positionY = prisoner.positionY + 15;
+    this.width = 20;
+    this.height = 20;
+
+    this.domElement = null;
+    this.createDomElement();
+  }
+  createDomElement() {
+    this.domElement = document.createElement("div");
+    this.domElement.className = "bone";
+    this.domElement.style.width = this.width + "px";
+    this.domElement.style.height = this.height + "px";
+    this.domElement.style.left = this.positionX + "px";
+    this.domElement.style.bottom = this.positionY + "px";
+    const boardElm = document.getElementById("board");
+    boardElm.appendChild(this.domElement);
+  }
+  throwBone() {
+
+    this.positionX = this.positionX + 10;
+    this.domElement.style.left = this.positionX + "px";
+  }
+}
 class Hole {
   constructor() {
     this.positionX = 750;
@@ -74,10 +100,10 @@ class Hole {
 }
 class TopLight {
   constructor() {
-    this.positionX = Math.floor(Math.random() * 750);
-    this.positionY = 450;
-    this.width = 50;
-    this.height = 50;
+    this.positionX = Math.floor(Math.random() * 700);
+    this.positionY = 400;
+    this.width = 100;
+    this.height = 100;
 
     this.domElement = null;
     this.createDomElement();
@@ -123,11 +149,10 @@ class Dog {
   }
 }
 const prisoner = new Prisoner();
-const hole = new Hole()
+const hole = new Hole();
 const topLigths = [];
 const dogs = [];
-
-
+const bones = [];
 
 document.addEventListener("keydown", (e) => {
   if (e.key === "ArrowUp") {
@@ -138,8 +163,18 @@ document.addEventListener("keydown", (e) => {
     prisoner.moveRigth();
   } else if (e.key === "ArrowLeft") {
     prisoner.moveLeft();
-  }
+  } 
 });
+
+document.addEventListener ("keydown", (e) => {
+
+  if (e.key === " ") {
+    const newBone = new Bone();
+    bones.push(newBone);
+  }
+
+});
+
 
 
 
@@ -147,49 +182,44 @@ document.addEventListener("keydown", (e) => {
 setInterval(() => {
   const newTopLight = new TopLight();
   topLigths.push(newTopLight);
-
 }, 2000);
 
 setInterval(() => {
   const newDog = new Dog();
   dogs.push(newDog);
-
 }, 2000);
-
-
 
 //move light & detect collision
 setInterval(() => {
   topLigths.forEach((topLightInstance) => {
     topLightInstance.moveDown();
-    
-  //collision detector must be inside this interval, because our prisoner is moving in four directions
 
-  if (
-    prisoner.positionX < topLightInstance.positionX + topLightInstance.width &&
-    prisoner.positionX + prisoner.width > topLightInstance.positionX &&
-    prisoner.positionY < topLightInstance.positionY + topLightInstance.height &&
-    prisoner.height + prisoner.positionY > topLightInstance.positionY
-  ) {
-    console.log("collision");
-   //location.href = 'gameover.html';
-  }
-  if (topLightInstance.positionY === 0) {
-    //console.log('remove obstacle with position...', obstacleInstance.positionY);
-    topLightInstance.domElement.remove();
-    topLigths.shift();
-    //console.log(this.obstacles.length);
-  }
+    //collision detector must be inside this interval, because our prisoner is moving in four directions
+
+    if (
+      prisoner.positionX <
+        topLightInstance.positionX + topLightInstance.width &&
+      prisoner.positionX + prisoner.width > topLightInstance.positionX &&
+      prisoner.positionY <
+        topLightInstance.positionY + topLightInstance.height &&
+      prisoner.height + prisoner.positionY > topLightInstance.positionY
+    ) {
+      console.log("collision");
+      //location.href = 'gameover.html';
+    }
+    if (topLightInstance.positionY === 0) {
+      //console.log('remove obstacle with position...', obstacleInstance.positionY);
+      topLightInstance.domElement.remove();
+      topLigths.shift();
+      //console.log(this.obstacles.length);
+    }
   });
-
-  
-
-}, 50); 
+}, 50);
 
 setInterval(() => {
   dogs.forEach((dogInstance) => {
     dogInstance.moveLeft();
-    
+
     if (
       prisoner.positionX < dogInstance.positionX + dogInstance.width &&
       prisoner.positionX + prisoner.width > dogInstance.positionX &&
@@ -197,8 +227,8 @@ setInterval(() => {
       prisoner.height + prisoner.positionY > dogInstance.positionY
     ) {
       console.log("collision");
-     location.href = 'gameover.html';
-    }
+      //location.href = "gameover.html";
+    }  
 
     if (dogInstance.positionX === 0) {
       //console.log('remove obstacle with position...', obstacleInstance.positionY);
@@ -206,18 +236,41 @@ setInterval(() => {
       dogs.shift();
       //console.log(this.obstacles.length);
     }
-  
+  });
+}, 50);
 
+setInterval(() => {
+  bones.forEach((boneInstance) => {
+    boneInstance.throwBone();
+    if (boneInstance.positionX === 780 ) {
+      boneInstance.domElement.remove();
+      bones.shift();
+      //console.log(this.obstacles.length);
+    }
+    dogs.forEach((dogInstance) => {
+      if (
+        dogInstance.positionX < boneInstance.positionX + boneInstance.width &&
+        dogInstance.positionX + dogInstance.width > boneInstance.positionX &&
+        dogInstance.positionY < boneInstance.positionY + boneInstance.height &&
+        dogInstance.height + dogInstance.positionY > boneInstance.positionY
+      ) {
+        console.log("YUMMY BONE WOF WOF");
+        dogInstance.domElement.remove();
+        boneInstance.domElement.remove()
+        dogs.shift();
+        bones.shift();
+
+      } 
+    })
  
+
   });
 
-  
 
-}, 50); 
+}, 100)
 
 
 setInterval(() => {
-
   if (
     prisoner.positionX < hole.positionX + hole.width &&
     prisoner.positionX + prisoner.width > hole.positionX &&
@@ -225,13 +278,6 @@ setInterval(() => {
     prisoner.height + prisoner.positionY > hole.positionY
   ) {
     console.log("you escaped");
-   location.href = 'win.html';
+    //location.href = "win.html";
   }
-
-  }, 50);
-
-  
-
-
-
-
+}, 50);
