@@ -73,8 +73,9 @@ class Bone {
   }
   throwBone() {
 
-    this.positionX = this.positionX + 10;
+    this.positionX = this.positionX + 50;
     this.domElement.style.left = this.positionX + "px";
+
   }
 }
 class Hole {
@@ -240,26 +241,28 @@ setInterval(() => {
 }, 50);
 
 setInterval(() => {
-  bones.forEach((boneInstance) => {
+  bones.forEach((boneInstance, boneIndex) => {
     boneInstance.throwBone();
-    if (boneInstance.positionX === 780 ) {
+
+    if (boneInstance.positionX >= 780 ) {
       boneInstance.domElement.remove();
-      bones.shift();
+      bones.splice(boneIndex, 1);
       //console.log(this.obstacles.length);
     }
-    dogs.forEach((dogInstance) => {
+    dogs.forEach((dogInstance, index) => {
       if (
         dogInstance.positionX < boneInstance.positionX + boneInstance.width &&
         dogInstance.positionX + dogInstance.width > boneInstance.positionX &&
         dogInstance.positionY < boneInstance.positionY + boneInstance.height &&
         dogInstance.height + dogInstance.positionY > boneInstance.positionY
       ) {
+        console.log(dogs, "before")
         console.log("YUMMY BONE WOF WOF");
         dogInstance.domElement.remove();
         boneInstance.domElement.remove()
-        dogs.shift();
+        dogs.splice(index, 1);
         bones.shift();
-
+        console.log(dogs, 'after')
       } 
     })
  
