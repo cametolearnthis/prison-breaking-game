@@ -214,7 +214,7 @@ class Bone {
     boardElm.appendChild(this.domElement);
   }
   throwBone() {
-    this.positionX = this.positionX + 10;
+    this.positionX = this.positionX + 20;
     this.domElement.style.left = this.positionX + "px";
   }
 }
@@ -260,7 +260,7 @@ class TopLight {
     boardElm.appendChild(this.domElement);
   }
   moveDown() {
-    this.positionY = this.positionY - 5;
+    this.positionY = this.positionY - 4;
     this.domElement.style.bottom = this.positionY + "px";
   }
 }

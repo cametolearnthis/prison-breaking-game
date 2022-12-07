@@ -1,0 +1,39 @@
+body {
+    background-color: rgb(62, 58, 58);
+    color: white;
+}
+.instructions {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+header,
+article {
+    text-align: center;
+}
+
+h1 {
+   font-size: 60px;
+}
+h2 {
+    font-size: 36px;
+}
+h3 {
+    font-size: 32px;
+}
+ul {
+    list-style-type: none;
+    padding-bottom: 60px;
+}
+li {
+    font-size: 20px;
+    line-height: 1.5;
+}
+button {
+    width: 240px;
+    height: 72px;
+    border-radius: 12px;
+    font-size: 28px;
+}
