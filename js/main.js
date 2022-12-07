@@ -72,7 +72,7 @@ class Bone {
     boardElm.appendChild(this.domElement);
   }
   throwBone() {
-
+ 
     this.positionX = this.positionX + 50;
     this.domElement.style.left = this.positionX + "px";
 
