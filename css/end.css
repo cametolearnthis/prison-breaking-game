@@ -1,0 +1,27 @@
+body {
+    background-color: rgb(62, 58, 58);
+    color: white;
+}
+.menu {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+header,
+article {
+    text-align: center;
+}
+
+h1 {
+   font-size: 60px;
+}
+h2 {
+    font-size: 36px;
+}
+button {
+    width: 160px;
+    height: 60px;
+    border-radius: 8px;
+    font-size: 20px;
+}
