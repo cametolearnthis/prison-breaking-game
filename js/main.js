@@ -197,8 +197,8 @@ class Bone {
    
     this.positionY = player.positionY + 15;
 
-    this.width = 20;
-    this.height = 20;
+    this.width = 30;
+    this.height = 15;
 
     this.domElement = null;
     this.createDomElement();

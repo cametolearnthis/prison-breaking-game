@@ -16,7 +16,9 @@
 }
 .bone {
     position: absolute;
-    background-color: greenyellow;
+    background-image: url(../resources/bone.PNG);
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 #hole {
     position: absolute;
