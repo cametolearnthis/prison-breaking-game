@@ -142,7 +142,7 @@ class Prisoner {
   constructor() {
     this.positionX = 0;
     this.positionY = 225;
-    this.width = 50;
+    this.width = 25;
     this.height = 50;
 
     this.domElement = null;
@@ -268,8 +268,8 @@ class Dog {
   constructor() {
     this.positionX = 750;
     this.positionY = Math.floor(Math.random() * 450);
-    this.width = 50;
-    this.height = 25;
+    this.width = 45;
+    this.height = 30;
 
     this.domElement = null;
     this.createDomElement();
