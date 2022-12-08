@@ -18,7 +18,7 @@
 }
 .bone {
     position: absolute;
-    background-image: url(../resources/bone.PNG);
+    background-image: url(../resources/bone.png);
     background-repeat: no-repeat;
     background-size: cover;
 }
