@@ -3,7 +3,6 @@ body {
     background-image: url(../resources/start.png);
     color: #000;
     font-family: 'Maven Pro', sans-serif;
-    background-size: cover;
     background-repeat: no-repeat;
 }
 .instructions {
@@ -40,4 +39,28 @@ button {
     height: 72px;
     border-radius: 12px;
     font-size: 28px;
+    box-shadow: 4px 4px 2px rgb(204, 192, 192);
+}
+button:hover {
+    background-color: rgb(176, 172, 172);
+}
+
+input {
+    width: 25px;
+    border-radius: 50%;
+    border: 0;
+    opacity: 0.7;
+
+}
+#playButton {
+    margin-top: -10px;
+    background-image: url(../resources/playbutton.png);
+    background-size: cover;
+    background-position: 2px;
+}
+#pauseButton {
+    margin-top: -10px;
+    background-image: url(../resources/pauseButton.png);
+    background-size: cover;
+    background-position: 0;
 }

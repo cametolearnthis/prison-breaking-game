@@ -4,7 +4,6 @@ body {
     background-image: url(../resources/win.png);
     color: black;
     font-family: 'Maven Pro', sans-serif;
-    background-size: cover;
     background-repeat: no-repeat;
 }
 .menu {
@@ -29,4 +28,12 @@ button {
     height: 60px;
     border-radius: 8px;
     font-size: 20px;
+    box-shadow: 4px 4px 2px rgb(96, 95, 95);
+}
+#play-again:hover {
+    background-color: rgb(176, 172, 172);
+}
+
+#main-menu:hover {
+    background-color: rgb(142, 159, 142);
 }

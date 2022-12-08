@@ -10,6 +10,7 @@ class Game {
     this.prisoner = new Prisoner();
     this.hole = new Hole();
     this.attachEventListeners();
+    this.attachBoneEventListener();
     this.detectCollision();
     
     setInterval(() => {
@@ -38,12 +39,12 @@ class Game {
     }, 50);
 
     setInterval(() => {
-      this.bones.forEach((boneInstance) => {
+      this.bones.forEach((boneInstance, boneIndex) => {
         boneInstance.throwBone();
-        this.detectBoneCollision(boneInstance);
+        this.detectBoneCollision(boneInstance, boneIndex);
         this.removeBoneIfOutside(boneInstance);
       });
-    }, 100) 
+    }, 75) 
   }
   attachEventListeners() {
     document.addEventListener("keydown", (e) => {
@@ -55,11 +56,16 @@ class Game {
         this.prisoner.moveRigth();
       } else if (e.key === "ArrowLeft") {
         this.prisoner.moveLeft();
-      } else if (e.key === " ") {
+      } 
+    });
+  }
+  attachBoneEventListener () {
+    document.addEventListener("keyup", (e) => {
+      if (e.key === " ") {
         const newBone = new Bone(this.prisoner);
         this.bones.push(newBone);
       }
-    });
+    })
   }
   
   
@@ -87,7 +93,7 @@ class Game {
       location.href = "gameover.html";
     }  
   }
-  detectBoneCollision(boneInstance) {
+  detectBoneCollision(boneInstance, boneIndex) {
     this.dogs.forEach((dogInstance, index) => {
       if (
         dogInstance.positionX < boneInstance.positionX + boneInstance.width &&
@@ -99,7 +105,7 @@ class Game {
         dogInstance.domElement.remove();
         boneInstance.domElement.remove()
         this.dogs.splice(index, 1);
-        this.bones.shift();
+        this.bones.splice(boneIndex, 1);
       } 
     })
   }
