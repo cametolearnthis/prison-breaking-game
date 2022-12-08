@@ -243,8 +243,8 @@ class TopLight {
   constructor() {
     this.positionX = Math.floor(Math.random() * 700);
     this.positionY = 400;
-    this.width = 100;
-    this.height = 100;
+    this.width = 80;
+    this.height = 80;
 
     this.domElement = null;
     this.createDomElement();
