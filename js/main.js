@@ -214,7 +214,7 @@ class Bone {
     boardElm.appendChild(this.domElement);
   }
   throwBone() {
-    this.positionX = this.positionX + 20;
+    this.positionX = this.positionX + 25;
     this.domElement.style.left = this.positionX + "px";
   }
 }
