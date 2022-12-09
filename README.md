@@ -12,7 +12,7 @@ The prisoner must reach the hole to escape from prison. You can move up, down, r
 
 Be careful with the lights and the dogs! 
 
-You can throw a bone against a dog to make it disappear.
+You can throw a bone against a dog to make it disappear. Just press the space bar.
 
 ![Screenshoot](./resources/GameCapture.png)
 
