@@ -7,7 +7,7 @@
     height: 500px;
     border: 200px;
     position: relative;
-    background-image: url(../resources/board.png)
+    background-image: url(../resources/board.png);
 
 }
 #prisoner {
@@ -40,5 +40,21 @@
     background-repeat: no-repeat;
     background-size: cover;
 }
-
+.container {
+    display: flex;
+}
+.chronometer {
+    height: 50px;
+    width: 50px;
+    display: flex;
+    justify-content: center;
+    background-color: rgb(162, 162, 179);
+    border-radius: 5%;
+}
+#countdown {
+    height: 30px;
+    color: black;
+    font-size: 30px;
+    margin-top: 10px;
+}
 
