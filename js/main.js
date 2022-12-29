@@ -12,7 +12,7 @@ class Game {
     this.attachEventListeners();
     this.attachBoneEventListener();
     this.detectCollision();
-    
+
     setInterval(() => {
       const newTopLight = new TopLight();
       this.topLigths.push(newTopLight);
@@ -21,20 +21,18 @@ class Game {
       const newDog = new Dog();
       this.dogs.push(newDog);
     }, 2000);
-    setInterval(() => {
-      this.topLigths.forEach((topLightInstance) => {
-        topLightInstance.moveDown();
-        this.detectLightCollision(topLightInstance);
-        this.removeTopLightIfOutside(topLightInstance);
-      });
-    }, 50);
+
     setInterval(() => {
       this.detectCollision();
       this.dogs.forEach((dogInstance) => {
         dogInstance.moveLeft();
         this.detectDogCollision(dogInstance);
         this.removeDogIfOutside(dogInstance);
-        
+      });
+      this.topLigths.forEach((topLightInstance) => {
+        topLightInstance.moveDown();
+        this.detectLightCollision(topLightInstance);
+        this.removeTopLightIfOutside(topLightInstance);
       });
     }, 50);
 
@@ -44,7 +42,7 @@ class Game {
         this.detectBoneCollision(boneInstance, boneIndex);
         this.removeBoneIfOutside(boneInstance);
       });
-    }, 75) 
+    }, 75);
   }
   attachEventListeners() {
     document.addEventListener("keydown", (e) => {
@@ -56,30 +54,30 @@ class Game {
         this.prisoner.moveRigth();
       } else if (e.key === "ArrowLeft") {
         this.prisoner.moveLeft();
-      } 
+      }
     });
   }
-  attachBoneEventListener () {
+  attachBoneEventListener() {
     document.addEventListener("keyup", (e) => {
       if (e.key === " ") {
         const newBone = new Bone(this.prisoner);
         this.bones.push(newBone);
       }
-    })
+    });
   }
-  
-  
+
   detectLightCollision(topLightInstance) {
     if (
       this.prisoner.positionX <
         topLightInstance.positionX + topLightInstance.width &&
-        this.prisoner.positionX + this.prisoner.width > topLightInstance.positionX &&
-        this.prisoner.positionY <
+      this.prisoner.positionX + this.prisoner.width >
+        topLightInstance.positionX &&
+      this.prisoner.positionY <
         topLightInstance.positionY + topLightInstance.height &&
-        this.prisoner.height + this.prisoner.positionY > topLightInstance.positionY
+      this.prisoner.height + this.prisoner.positionY >
+        topLightInstance.positionY
     ) {
-
-      location.href = 'gameover.html';
+      location.href = "gameover.html";
     }
   }
   detectDogCollision(dogInstance) {
@@ -89,9 +87,8 @@ class Game {
       this.prisoner.positionY < dogInstance.positionY + dogInstance.height &&
       this.prisoner.height + this.prisoner.positionY > dogInstance.positionY
     ) {
-      
       location.href = "gameover.html";
-    }  
+    }
   }
   detectBoneCollision(boneInstance, boneIndex) {
     this.dogs.forEach((dogInstance, index) => {
@@ -101,15 +98,14 @@ class Game {
         dogInstance.positionY < boneInstance.positionY + boneInstance.height &&
         dogInstance.height + dogInstance.positionY > boneInstance.positionY
       ) {
-
         dogInstance.domElement.remove();
-        boneInstance.domElement.remove()
+        boneInstance.domElement.remove();
         this.dogs.splice(index, 1);
         this.bones.splice(boneIndex, 1);
-      } 
-    })
+      }
+    });
   }
-  
+
   detectCollision() {
     if (
       this.prisoner.positionX < this.hole.positionX + this.hole.width &&
@@ -117,32 +113,28 @@ class Game {
       this.prisoner.positionY < this.hole.positionY + this.hole.height &&
       this.prisoner.height + this.prisoner.positionY > this.hole.positionY
     ) {
-
       location.href = "win.html";
     }
   }
- 
+
   removeTopLightIfOutside(topLightInstance) {
     if (topLightInstance.positionY === 0) {
       topLightInstance.domElement.remove();
       this.topLigths.shift();
-
     }
   }
   removeDogIfOutside(dogInstance) {
     if (dogInstance.positionX === 0) {
       dogInstance.domElement.remove();
       this.dogs.shift();
-
     }
   }
   removeBoneIfOutside(boneInstance, boneIndex) {
-    if (boneInstance.positionX >= 780 ) {
+    if (boneInstance.positionX >= 780) {
       boneInstance.domElement.remove();
       this.bones.splice(boneIndex, 1);
     }
   }
- 
 }
 class Prisoner {
   constructor() {
@@ -200,7 +192,7 @@ class Prisoner {
 class Bone {
   constructor(player) {
     this.positionX = player.positionX + 50;
-   
+
     this.positionY = player.positionY + 15;
 
     this.width = 30;
@@ -296,9 +288,31 @@ class Dog {
   }
 }
 
+let secondInit = 20;
+
+function update() {
+  document.getElementById("countdown").innerHTML = secondInit;
+
+  if (secondInit == 0) {
+    location.href = "gameover.html";
+  } else {
+    secondInit -= 1;
+    setTimeout(update, 1000);
+  }
+}
+update();
+/*
+setTimeout(() => {
+  document.getElementById("countdown").innerHTML = secondInit;
+
+  if (secondInit == 0) {
+    location.href = "gameover.html";
+  } else {
+    secondInit -= 1;
+  }
+}, 1000)
+*/
 
 
 const game = new Game();
 game.start();
-
-
