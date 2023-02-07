@@ -4,7 +4,7 @@
 
 For this project, I wanted to focus on OOP gaming, implementing arrow key events, detecting collisions and making the character able to *shoot* against his enemies.
 
-![Main Page](./resources/MainPage.png)
+![Main Page](./resources/prison-background.jpg)
 
 ### How to play
 
